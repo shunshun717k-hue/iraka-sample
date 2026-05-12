@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>甃 — Tea room IRAKA</title>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Antique+B1&family=Noto+Serif+JP:wght@200;300;400&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+
+/* 和紙のような質感 */
+body{
+  background:#f0ebe0;
+  color:#1a1a12;
+  font-family:'Noto Serif JP',serif;
+  font-weight:300;
+  overflow-x:hidden;
+}
+
+/* ── NAV: 限界まで削ぎ落とす ── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  padding:28px 56px;
+  display:flex;justify-content:space-between;align-items:center;
+}
+nav.s{background:rgba(240,235,224,.97);backdrop-filter:blur(8px)}
+.n-logo{
+  font-family:'Shippori Antique B1',serif;
+  font-size:24px;color:#1a1a12;text-decoration:none;letter-spacing:8px;
+}
+.n-right{
+  font-family:'Noto Serif JP',serif;
+  font-size:11px;color:rgba(26,26,18,.35);letter-spacing:3px;font-weight:200;
+}
+
+/* ── S1: 沈黙のヒーロー ── */
+/* 全黒背景に「甃」の一文字だけ */
+.s1{
+  min-height:100vh;
+  background:#1a1a12;
+  display:flex;flex-direction:column;
+  justify-content:center;align-items:center;
+  position:relative;overflow:hidden;
+}
+/* 細い縦線のテクスチャ */
+.s1::before{
+  content:'';position:absolute;inset:0;
+  background:repeating-linear-gradient(
+    90deg,transparent,transparent 119px,
+    rgba(255,255,255,.02) 119px,rgba(255,255,255,.02) 120px
+  );
+  pointer-events:none;
+}
+/* 中央の一文字 */
+.s1-kanji{
+  font-family:'Shippori Antique B1',serif;
+  font-size:clamp(200px,30vw,480px);
+  color:rgba(240,235,224,.06);
+  line-height:1;
+  position:absolute;
+  top:50%;left:50%;transform:translate(-50%,-50%);
+  pointer-events:none;user-select:none;
+  animation:breathe 6s ease-in-out infinite;
+}
+@keyframes breathe{0%,100%{opacity:.06}50%{opacity:.1}}
+
+.s1-content{
+  position:relative;z-index:2;
+  text-align:center;
+  padding:0 40px;
+}
+.s1-en{
+  font-family:'Noto Serif JP',serif;
+  font-size:10px;letter-spacing:8px;font-weight:200;
+  color:rgba(240,235,224,.25);
+  display:block;margin-bottom:40px;
+}
+.s1-name-wrap{
+  display:flex;flex-direction:column;align-items:center;
+  margin-bottom:8px;
+}
+.s1-furigana{
+  font-family:'Noto Serif JP',serif;
+  font-size:14px;letter-spacing:8px;font-weight:200;
+  color:rgba(240,235,224,.4);
+  display:block;margin-bottom:8px;
+  text-align:center;
+}
+.s1-name{
+  font-family:'Shippori Antique B1',serif;
+  font-size:clamp(32px,4vw,56px);
+  color:rgba(240,235,224,.7);
+  letter-spacing:12px;
+  display:block;
+}
+ruby.s1-name{
+  ruby-align:center;
+}
+ruby.s1-name rt{
+  font-family:'Noto Serif JP',serif;
+  font-size:14px;
+  letter-spacing:6px;
+  color:rgba(240,235,224,.4);
+  font-weight:200;
+  display:block;
+  text-align:center;
+  margin-bottom:4px;
+}
+.s1-sub{
+  font-family:'Noto Serif JP',serif;
+  font-size:11px;letter-spacing:4px;font-weight:200;
+  color:rgba(240,235,224,.2);
+}
+/* 下部：営業日だけを見せる */
+.s1-days{
+  position:absolute;bottom:0;left:0;right:0;
+  display:flex;
+}
+.s1-day{
+  flex:1;padding:28px 0;text-align:center;
+  font-family:'Shippori Antique B1',serif;
+  font-size:16px;letter-spacing:4px;
+  border-top:1px solid rgba(255,255,255,.04);
+  border-right:1px solid rgba(255,255,255,.04);
+}
+.s1-day:last-child{border-right:none}
+.s1-day.open{color:rgba(240,235,224,.8)}
+.s1-day.closed{color:rgba(240,235,224,.12)}
+.s1-day-label{
+  display:block;font-family:'Noto Serif JP',serif;
+  font-size:8px;letter-spacing:3px;font-weight:200;
+  margin-top:6px;
+}
+.s1-day.open .s1-day-label{color:rgba(184,160,80,.6)}
+.s1-day.closed .s1-day-label{color:rgba(255,255,255,.08)}
+
+/* ── S2: 「について」- 極めて静かなレイアウト ── */
+.s2{
+  min-height:90vh;
+  display:grid;grid-template-columns:1fr 1fr;
+}
+.s2-left{
+  background:#f0ebe0;
+  padding:120px 80px;
+  display:flex;flex-direction:column;justify-content:center;
+}
+.s2-num{
+  font-family:'Shippori Antique B1',serif;
+  font-size:120px;color:rgba(26,26,18,.04);
+  line-height:1;margin-bottom:-20px;
+  pointer-events:none;user-select:none;
+}
+.s2-tag{
+  font-size:10px;letter-spacing:5px;font-weight:200;
+  color:rgba(26,26,18,.3);display:block;margin-bottom:40px;
+}
+.s2-heading{
+  font-family:'Shippori Antique B1',serif;
+  font-size:clamp(28px,3.5vw,48px);
+  color:#1a1a12;line-height:1.6;letter-spacing:4px;
+  margin-bottom:56px;
+}
+.s2-body{
+  font-size:14px;font-weight:200;color:#5a5040;
+  line-height:3.2;letter-spacing:.5px;
+  max-width:400px;
+}
+/* 右：深い墨色の余白 */
+.s2-right{
+  background:#2a2a1e;
+  display:flex;align-items:center;justify-content:center;
+  padding:80px;
+  position:relative;overflow:hidden;
+}
+.s2-right::before{
+  content:'甃';
+  position:absolute;
+  font-family:'Shippori Antique B1',serif;
+  font-size:400px;color:rgba(255,255,255,.025);
+  line-height:1;pointer-events:none;user-select:none;
+}
+.s2-right-content{position:relative;z-index:2;text-align:center}
+.s2-right-text{
+  font-family:'Noto Serif JP',serif;
+  font-size:16px;font-weight:200;
+  color:rgba(240,235,224,.5);
+  line-height:3;letter-spacing:2px;
+  font-style:italic;
+}
+
+/* ── S3: メニュー - 最小限 ── */
+.s3{
+  background:#e8e0d0;
+  padding:120px 80px;
+}
+.s3-head{
+  display:flex;justify-content:space-between;align-items:flex-end;
+  margin-bottom:80px;
+  padding-bottom:32px;
+  border-bottom:1px solid rgba(26,26,18,.1);
+}
+.s3-title{
+  font-family:'Shippori Antique B1',serif;
+  font-size:clamp(28px,4vw,48px);color:#1a1a12;letter-spacing:6px;
+}
+.s3-note{font-size:12px;font-weight:200;color:rgba(26,26,18,.4);line-height:2;text-align:right;letter-spacing:1px}
+.s3-items{display:flex;flex-direction:column;gap:0;max-width:680px}
+.s3-item{
+  padding:48px 0;
+  border-bottom:1px solid rgba(26,26,18,.08);
+  position:relative;
+}
+.s3-item::after{content:'';position:absolute;bottom:0;left:0;width:0;height:1px;background:#1a1a12;transition:width .6s ease}
+.s3-item:hover::after{width:100%}
+.s3-item:last-child{border-bottom:none}
+.s3-item-label{font-size:9px;letter-spacing:5px;font-weight:200;color:rgba(26,26,18,.3);display:block;margin-bottom:16px}
+.s3-item h3{font-family:'Shippori Antique B1',serif;font-size:22px;color:#1a1a12;letter-spacing:4px;margin-bottom:12px}
+.s3-item p{font-size:12px;color:#6a6050;line-height:2.6;max-width:480px}
+
+/* ── S4: 営業日カレンダー ── */
+.s4{background:#1a1a12;padding:120px 80px}
+.s4-tag{font-size:10px;letter-spacing:5px;font-weight:200;color:rgba(240,235,224,.2);display:block;margin-bottom:56px;text-align:center}
+.s4-title{
+  font-family:'Shippori Antique B1',serif;
+  font-size:clamp(28px,4vw,48px);color:rgba(240,235,224,.7);
+  letter-spacing:6px;text-align:center;margin-bottom:80px;
+}
+.s4-cal{
+  display:grid;grid-template-columns:repeat(7,1fr);
+  gap:1px;background:rgba(255,255,255,.04);
+  max-width:700px;margin:0 auto 56px;
+}
+.s4-day{
+  padding:40px 16px;text-align:center;
+  background:#1a1a12;
+}
+.s4-day.open{background:#2a2a1e}
+.s4-day-name{
+  font-family:'Shippori Antique B1',serif;
+  font-size:20px;letter-spacing:2px;display:block;margin-bottom:10px;
+}
+.s4-day.open .s4-day-name{color:rgba(240,235,224,.8)}
+.s4-day.closed .s4-day-name{color:rgba(255,255,255,.1)}
+.s4-day-status{font-size:8px;letter-spacing:3px;display:block}
+.s4-day.open .s4-day-status{color:rgba(180,160,80,.5)}
+.s4-day.closed .s4-day-status{color:rgba(255,255,255,.06)}
+.s4-hours{
+  text-align:center;
+  font-family:'Noto Serif JP',serif;font-size:14px;font-weight:200;
+  color:rgba(240,235,224,.4);line-height:2.8;letter-spacing:2px;
+}
+.s4-hours strong{color:rgba(240,235,224,.7);font-weight:300}
+
+/* ── S5: アクセス ── */
+.s5{
+  min-height:70vh;background:#f0ebe0;
+  display:grid;grid-template-columns:1fr 1fr;
+}
+.s5-left{
+  padding:100px 80px;
+  display:flex;flex-direction:column;justify-content:space-between;
+}
+.s5-title{font-family:'Shippori Antique B1',serif;font-size:clamp(32px,4vw,52px);color:#1a1a12;letter-spacing:6px;margin-bottom:64px}
+.s5-list{list-style:none}
+.s5-list li{display:flex;gap:24px;padding:20px 0;border-bottom:1px solid rgba(26,26,18,.08)}
+.s5-list li:last-child{border-bottom:none}
+.s5-key{font-size:9px;letter-spacing:3px;font-weight:200;color:rgba(26,26,18,.35);min-width:48px;padding-top:2px}
+.s5-val{font-size:13px;color:#5a5040;line-height:1.9}
+.s5-right{
+  background:#2a2a1e;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:32px;padding:80px;
+}
+.s5-ig-tag{font-size:9px;letter-spacing:4px;font-weight:200;color:rgba(240,235,224,.2)}
+.s5-ig-handle{
+  font-family:'Noto Serif JP',serif;
+  font-size:clamp(18px,2.5vw,28px);font-weight:200;
+  color:rgba(240,235,224,.6);text-decoration:none;letter-spacing:3px;
+  transition:color .4s;
+}
+.s5-ig-handle:hover{color:rgba(240,235,224,.9)}
+.s5-ig-note{font-size:12px;font-weight:200;color:rgba(240,235,224,.25);line-height:2.4;text-align:center}
+.s5-tel{font-size:11px;letter-spacing:3px;font-weight:200;color:rgba(240,235,224,.25);text-decoration:none;transition:color .3s}
+.s5-tel:hover{color:rgba(240,235,224,.5)}
+
+footer{
+  background:#1a1a12;padding:48px 80px;
+  display:flex;justify-content:space-between;align-items:center;
+  border-top:1px solid rgba(255,255,255,.04);
+}
+.f-logo{font-family:'Shippori Antique B1',serif;font-size:18px;letter-spacing:6px;color:rgba(240,235,224,.3)}
+.f-copy{font-size:10px;letter-spacing:2px;font-weight:200;color:rgba(240,235,224,.12)}
+
+.reveal{opacity:0;transform:translateY(20px);transition:opacity 1s,transform 1s}
+.reveal.v{opacity:1;transform:translateY(0)}
+
+@media(max-width:768px){
+  nav{padding:16px 20px}
+  .n-right{display:none}
+  .s1-days{display:none}
+  .s2{grid-template-columns:1fr}
+  .s2-right{display:none}
+  .s2-left{padding:72px 24px}
+  .s3{padding:72px 24px}
+  .s4{padding:72px 24px}
+  .s5{grid-template-columns:1fr}
+  .s5-left{padding:72px 24px}
+  .s5-right{padding:72px 24px;min-height:240px}
+  footer{flex-direction:column;gap:12px;padding:32px 24px;text-align:center}
+}
+</style>
+</head>
+<body>
+
+<nav id="nav">
+  <a href="#top" class="n-logo">甃</a>
+  <div class="n-right">Tea room IRAKA — 火・水曜営業</div>
+</nav>
+
+<!-- S1 -->
+<section class="s1" id="top">
+  <div class="s1-kanji">甃</div>
+  <div class="s1-content">
+    <span class="s1-en">Tea room — Moriguchi, Osaka</span>
+    <div class="s1-name-wrap">
+      <span class="s1-furigana">いらか</span>
+      <ruby class="s1-name">甃</ruby>
+    </div>
+    <span class="s1-sub">週に二日だけ、扉が開く。</span>
+  </div>
+  <div class="s1-days">
+    <div class="s1-day closed">月<span class="s1-day-label">closed</span></div>
+    <div class="s1-day open">火<span class="s1-day-label">open</span></div>
+    <div class="s1-day open">水<span class="s1-day-label">open</span></div>
+    <div class="s1-day closed">木<span class="s1-day-label">closed</span></div>
+    <div class="s1-day closed">金<span class="s1-day-label">closed</span></div>
+    <div class="s1-day closed">土<span class="s1-day-label">closed</span></div>
+    <div class="s1-day closed">日<span class="s1-day-label">closed</span></div>
+  </div>
+</section>
+
+<!-- S2 -->
+<section class="s2" id="about">
+  <div class="s2-left reveal">
+    <div class="s2-num">甃</div>
+    <span class="s2-tag">甃について</span>
+    <div class="s2-heading">
+      週に二日だけ、<br>開く場所がある。
+    </div>
+    <p class="s2-body">
+      「甃（いらか）」とは、石畳を意味する言葉です。ひとつひとつの石が積み重なり、道をつくる。Tea room IRAKAは、そんな静かな積み重ねを大切にしています。<br><br>
+      火曜日と水曜日だけ開くこのティールームで、ゆっくりとお茶を楽しむ時間を。
+    </p>
+  </div>
+  <div class="s2-right reveal">
+    <div class="s2-right-content">
+      <div class="s2-right-text">
+        お茶と静寂と、<br>
+        ゆるやかな時間のために。
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- S3 -->
+<section class="s3" id="menu">
+  <div class="s3-head reveal">
+    <div class="s3-title">お茶と、あわせて。</div>
+    <div class="s3-note">メニューは季節・日によって<br>異なります</div>
+  </div>
+  <div class="s3-items">
+    <div class="s3-item reveal">
+      <span class="s3-item-label">Tea</span>
+      <h3>季節のお茶</h3>
+      <p>その季節に合わせて厳選したお茶をご用意しています。詳細はInstagramにてご確認ください。</p>
+    </div>
+    <div class="s3-item reveal">
+      <span class="s3-item-label">Sweets</span>
+      <h3>手作りのお菓子</h3>
+      <p>お茶に合わせて作る手作りのお菓子をお楽しみください。内容は季節・日によって異なります。</p>
+    </div>
+    <div class="s3-item reveal">
+      <span class="s3-item-label">Set</span>
+      <h3>お茶とお菓子のセット</h3>
+      <p>ゆっくりとお過ごしいただくための、お茶とお菓子のセットをご用意しています。</p>
+    </div>
+  </div>
+</section>
+
+<!-- S4 -->
+<section class="s4" id="schedule">
+  <span class="s4-tag reveal">Open Days</span>
+  <div class="s4-title reveal">営業日</div>
+  <div class="s4-cal reveal">
+    <div class="s4-day closed"><span class="s4-day-name">月</span><span class="s4-day-status">休</span></div>
+    <div class="s4-day open"><span class="s4-day-name">火</span><span class="s4-day-status">Open</span></div>
+    <div class="s4-day open"><span class="s4-day-name">水</span><span class="s4-day-status">Open</span></div>
+    <div class="s4-day closed"><span class="s4-day-name">木</span><span class="s4-day-status">休</span></div>
+    <div class="s4-day closed"><span class="s4-day-name">金</span><span class="s4-day-status">休</span></div>
+    <div class="s4-day closed"><span class="s4-day-name">土</span><span class="s4-day-status">休</span></div>
+    <div class="s4-day closed"><span class="s4-day-name">日</span><span class="s4-day-status">休</span></div>
+  </div>
+  <div class="s4-hours reveal">
+    <strong>11:00 — 16:00（L.O. 15:30）</strong><br>
+    ※不定期のため、Instagramにてご確認ください。<br>
+    ご予約は営業時間内のお電話 または Instagram DM にて。
+  </div>
+</section>
+
+<!-- S5 -->
+<section class="s5" id="access">
+  <div class="s5-left reveal">
+    <div class="s5-title">アクセス</div>
+    <ul class="s5-list">
+      <li><span class="s5-key">住所</span><span class="s5-val">大阪府守口市菊水通1-9-1</span></li>
+      <li><span class="s5-key">電話</span><span class="s5-val">080-9474-2166（営業時間内）</span></li>
+      <li><span class="s5-key">営業日</span><span class="s5-val">火・水曜（不定期）<br>11:00〜16:00</span></li>
+      <li><span class="s5-key">予約</span><span class="s5-val">お電話 または Instagram DM</span></li>
+      <li><span class="s5-key">駐車場</span><span class="s5-val">なし</span></li>
+      <li><span class="s5-key">地図</span><span class="s5-val">Googleマップは受注後に設定予定</span></li>
+    </ul>
+  </div>
+  <div class="s5-right reveal">
+    <span class="s5-ig-tag">Instagram</span>
+    <a href="https://www.instagram.com/tearoom.iraka/" target="_blank" class="s5-ig-handle">@tearoom.iraka</a>
+    <p class="s5-ig-note">
+      最新の営業日・メニュー情報は<br>
+      Instagramにて随時お知らせしています。
+    </p>
+    <a href="tel:080-9474-2166" class="s5-tel">080-9474-2166</a>
+  </div>
+</section>
+
+<footer>
+  <div class="f-logo">Tea room IRAKA 甃</div>
+  <div class="f-copy">© 2026 Tea room IRAKA — Moriguchi, Osaka</div>
+</footer>
+
+<script>
+const nav=document.getElementById('nav');
+window.addEventListener('scroll',()=>{nav.classList.toggle('s',window.scrollY>60)},{passive:true});
+const obs=new IntersectionObserver((e)=>{e.forEach((en,i)=>{if(en.isIntersecting){setTimeout(()=>en.target.classList.add('v'),i*100);obs.unobserve(en.target)}})},{threshold:.06});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>
